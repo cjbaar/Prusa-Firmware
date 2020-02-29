@@ -250,7 +250,7 @@ static void menu_draw_item_puts_P(char type_char, const char* str, int8_t num)
     lcd_set_cursor(0, menu_row);
     lcd_printf_P(PSTR("%c%-.16S "), menu_selection_mark(), str);
     //lcd_putc(num);
-    lcd_printf_P(_N("%d"), num);
+    lcd_printf_P(_N("%2d"), num);
     lcd_set_cursor(19, menu_row);
     lcd_putc(type_char);
 }
