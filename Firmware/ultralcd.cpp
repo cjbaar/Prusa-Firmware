@@ -652,11 +652,22 @@ void lcdui_print_extruder(void)
 		if (mmu_extruder == MMU_FILAMENT_UNKNOWN) chars = lcd_printf_P(_N(" F?"));
 		else chars = lcd_printf_P(_N(" F%u"), mmu_extruder + 1);
 	}
-	else
+	else if ((mmu_extruder != MMU_FILAMENT_UNKNOWN && (mmu_extruder + 1) > 9)  ||  (tmp_extruder + 1) > 9)
 	{
-		if (mmu_extruder == MMU_FILAMENT_UNKNOWN) chars = lcd_printf_P(_N(" ?>%u"), tmp_extruder + 1);
-		else chars = lcd_printf_P(_N(" %u>%u"), mmu_extruder + 1, tmp_extruder + 1);
+    //mmu status too long; alternate text
+    if ((uint16_t)floor(_millis()/1000) % 2 == 0)
+    {
+	    chars = lcd_printf_P(_N(" >%u"), tmp_extruder + 1);
+    }
+    else
+    {
+      chars = (mmu_extruder == MMU_FILAMENT_UNKNOWN) ? lcd_printf_P(_N(" ?>"), mmu_extruder + 1) : lcd_printf_P(_N(" %u>"), mmu_extruder + 1);
+    }
 	}
+  else
+  {
+    chars = (mmu_extruder == MMU_FILAMENT_UNKNOWN) ? lcd_printf_P(_N(" ?>%u"), tmp_extruder + 1) : lcd_printf_P(_N(" %u>%u"), mmu_extruder + 1, tmp_extruder + 1);
+  }
 	lcd_space(5 - chars);
 }
 
