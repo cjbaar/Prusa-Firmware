@@ -4,6 +4,7 @@
 
 #include "AutoDeplete.h"
 #include "assert.h"
+#include "mmu.h"
 
 //! @brief bit field marking depleted filaments
 //!

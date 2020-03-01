@@ -14,6 +14,4 @@ void ad_markLoaded(uint8_t filament);
 uint8_t ad_getAlternative(uint8_t filament);
 bool ad_allDepleted();
 
-extern uint8_t mmu_filament_count;
-
 #endif /* AUTODEPLETE_H */
