@@ -11,6 +11,7 @@
 //! binary 1 marks filament as depleted
 //! Zero initialized value means, that no filament is depleted.
 static uint32_t depleted;
+static const uint8_t filamentCount = mmu_filament_count;
 
 //! @return binary 1 for all filaments
 //! @par fCount number of filaments
@@ -33,8 +34,8 @@ static bool loaded(uint8_t filament)
 //! @par filament filament to be marked
 void ad_markDepleted(uint8_t filament)
 {
-    assert(filament < mmu_filament_count);
-    if (filament < mmu_filament_count)
+    assert(filament < filamentCount);
+    if (filament < filamentCount)
     {
         depleted |= 1 << filament;
     }
@@ -44,8 +45,8 @@ void ad_markDepleted(uint8_t filament)
 //! @par filament filament to be marked
 void ad_markLoaded(uint8_t filament)
 {
-    assert(filament < mmu_filament_count);
-    if (filament < mmu_filament_count)
+    assert(filament < filamentCount);
+    if (filament < filamentCount)
     {
         depleted &= ~(1 << filament);
     }
@@ -57,10 +58,10 @@ void ad_markLoaded(uint8_t filament)
 //! if all filaments are depleted, returns filament function parameter.
 uint8_t ad_getAlternative(uint8_t filament)
 {
-    assert(filament < mmu_filament_count);
-    for (uint8_t i = 0; i<mmu_filament_count; ++i)
+    assert(filament < filamentCount);
+    for (uint8_t i = 0; i<filamentCount; ++i)
     {
-        uint8_t nextFilament = (filament + i) % mmu_filament_count;
+        uint8_t nextFilament = (filament + i) % filamentCount;
         if (loaded(nextFilament)) return nextFilament;
     }
     return filament;
@@ -71,7 +72,7 @@ uint8_t ad_getAlternative(uint8_t filament)
 //! @retval false All filaments are not depleted.
 bool ad_allDepleted()
 {
-    if (allDepleted(mmu_filament_count) == depleted)
+    if (allDepleted(filamentCount) == depleted)
     {
         return true;
     }
