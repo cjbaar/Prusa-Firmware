@@ -65,7 +65,7 @@ bool ir_sensor_detected = false;
 static bool mmu_loading_flag = false; //when set to true, we assume that mmu2 unload was finished and loading phase is now performed; printer can send 'A' to mmu2 to abort loading process
 
 uint8_t mmu_extruder = MMU_FILAMENT_UNKNOWN;
-uint8_t mmu_filament_count = 12;
+uint8_t mmu_filament_count = 5;  // putting as variable so maybe later it can updated dynamically from MMU status query
 
 //! This variable probably has no meaning and is planed to be removed
 uint8_t tmp_extruder = MMU_FILAMENT_UNKNOWN;
